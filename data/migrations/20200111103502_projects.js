@@ -8,15 +8,15 @@ exports.up = async function(knex) {
       //boolean to indicate if project has been completed
       table.boolean("completed").notNullable().defaultTo(false)
     })
-   await knex.scheme.createTable("resources", (table) => {
+   await knex.schema.createTable("resources", (table) => {
        table.increments("id")
        table.string("name").notNullable().unique()
-       table.boolean("completed").notNullable.defaultTo(false)
+       table.boolean("completed").notNullable().defaultTo(false)
    })
    await knex.schema.createTable("tasks", (table) => {
        table.increments("id")
        table.string("description").notNullable()
-       table.boolean("completed").notNullable.defaultTo(false)
+       table.boolean("completed").notNullable().defaultTo(false)
        table.integer("project_id")
             .notNullable()
             .unsigned()
@@ -27,12 +27,12 @@ exports.up = async function(knex) {
    })
    await knex.schema.createTable("pr_re", (table) => {
        table.increments()
-       table.interger("project_id")
+       table.integer("project_id")
             .unsigned()
             .notNullable()
             .references("id")
             .inTable("projects")
-       table.interger("resource_id")
+       table.integer("resource_id")
             .unsigned()
             .notNullable()
             .references("id")
@@ -41,7 +41,7 @@ exports.up = async function(knex) {
    })
 };
 
-exports.down = function(knex) {
+exports.down = async function(knex) {
     await knex.schema.dropTableIfExits("pr_re")
     await knex.schema.dropTableIfExits("tasks")
     await knex.schema.dropTableIfExits("resources")
