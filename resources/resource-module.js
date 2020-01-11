@@ -16,7 +16,17 @@ async function addResource(resourceData) {
             })
 }
 
+async function getPR_RE(id) {
+    const re = await db("resources as r")
+        .join("pr_re as pr", "r.id", "pr.resource_id")
+        .join("projects as p", "pr.project_id", "p.id")
+        .where({ "pr.project_id": id })
+        .select("pr.resource_id", "pr.project_id")
+    return re;
+}
+
 module.exports = {
     getResources,
     addResource,
+    getPR_RE,
 }

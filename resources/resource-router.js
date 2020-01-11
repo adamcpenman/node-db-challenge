@@ -26,4 +26,16 @@ router.post('/', (req, res) => {
         })
 })
 
+router.get('/:id/projects', (req, res) => {
+    const { id } = req.params;
+
+    Resources.getPR_RE(id)
+        .then(project => {
+            res.status(200).json(project)
+        })
+        .catch(err => {
+            res.status(500).json({ err: "Failed to get projects/resources ids"})
+        })
+})
+
 module.exports = router;

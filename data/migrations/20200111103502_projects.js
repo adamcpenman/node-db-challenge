@@ -27,7 +27,7 @@ exports.up = async function(knex) {
             .onUpdate("CASCADE")
    })
    await knex.schema.createTable("pr_re", (table) => {
-       table.increments("id")
+    //    table.increments("id")
        table.integer("project_id")
             .unsigned()
             .notNullable()
@@ -38,6 +38,7 @@ exports.up = async function(knex) {
             .notNullable()
             .references("id")
             .inTable("resources")
+       table.primary(["project_id", "resource_id"])    
             
    })
 };
