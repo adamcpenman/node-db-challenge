@@ -8,6 +8,15 @@ async function getResources() {
     })
 }
 
+async function addResource(resourceData) {
+    await db("resources")
+            .insert(resourceData)
+            .then( resource => {
+                return resource
+            })
+}
+
 module.exports = {
     getResources,
+    addResource,
 }

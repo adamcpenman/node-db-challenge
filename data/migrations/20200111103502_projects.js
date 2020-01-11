@@ -14,7 +14,8 @@ exports.up = async function(knex) {
        table.boolean("completed").notNullable().defaultTo(false)
    })
    await knex.schema.createTable("tasks", (table) => {
-       table.increments("id")
+       table.increments()
+    //    table.integer("task_number").unsigned().notNullable()
        table.string("description").notNullable()
        table.boolean("completed").notNullable().defaultTo(false)
        table.integer("project_id")
@@ -26,7 +27,7 @@ exports.up = async function(knex) {
             .onUpdate("CASCADE")
    })
    await knex.schema.createTable("pr_re", (table) => {
-       table.increments()
+       table.increments("id")
        table.integer("project_id")
             .unsigned()
             .notNullable()
@@ -42,8 +43,8 @@ exports.up = async function(knex) {
 };
 
 exports.down = async function(knex) {
-    await knex.schema.dropTableIfExits("pr_re")
-    await knex.schema.dropTableIfExits("tasks")
-    await knex.schema.dropTableIfExits("resources")
-    await knex.schema.dropTableIfExits("projects")
+    await knex.schema.dropTableIfExists("pr_re")
+    await knex.schema.dropTableIfExists("tasks")
+    await knex.schema.dropTableIfExists("resources")
+    await knex.schema.dropTableIfExists("projects")
 };
